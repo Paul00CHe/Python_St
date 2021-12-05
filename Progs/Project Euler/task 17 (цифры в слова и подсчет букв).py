@@ -76,7 +76,14 @@ def NamToWord(x):
             and x != 600 and x != 700 and x != 800 and x != 900:
         x = list(str(x))
         x = EngChisl[int(x[0])] + ' ' + EngChisl[100] + ' and ' + NamToWord(int(x[1] + x[2]))
+    elif x == 1000:
+        x = list(str(x))
+        x = EngChisl[int(x[0])] + EngChisl[1000]
     return x
 
 
-print(NamToWord(280))
+S = []
+for i in range(1, 1001):
+    a = list(NamToWord(i).replace('-', '').replace(' ', ''))
+    S.append(len(a))
+print(sum(S))
