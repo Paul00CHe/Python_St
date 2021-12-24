@@ -1,25 +1,16 @@
-EngChisl = dict()
-EngChisl[1] = 'one'
-EngChisl[2] = 'two'
-EngChisl[3] = 'three'
-EngChisl[4] = 'four'
-EngChisl[5] = 'five'
-EngChisl[6] = 'six'
-EngChisl[7] = 'seven'
-EngChisl[8] = 'eight'
-EngChisl[9] = 'nine'
-EngChisl[10] = 'ten'
-EngChisl[11] = 'eleven'
-EngChisl[12] = 'twelve'
-EngChisl[14] = 'fourteen'
-EngChisl['13-30'] = 'thir'
-EngChisl['13-19_ok'] = 'teen'
-EngChisl[15] = 'fif'
-EngChisl[20] = 'twen'
-EngChisl[40] = 'for'
-EngChisl['20-90_ok'] = 'ty'
-EngChisl[1000] = 'hundred'
-x = 16
-x = list(str(x))
-x = EngChisl[int(x[1])] + EngChisl['13-19_ok']
-print(x)
+memory = {(1, 0): 1, (0, 1): 1}
+
+
+def func(x, y):
+    if (x, y) not in memory:
+        if x == 0:
+            memory[(x, y)] = func(x, y - 1)
+        elif y == 0:
+            memory[(x, y)] = func(x - 1, y)
+        else:
+            memory[(x, y)] = func(x - 1, y) + func(x, y - 1)
+    return memory[(x, y)]
+
+
+print(func(2, 2))
+print(func(20, 20))

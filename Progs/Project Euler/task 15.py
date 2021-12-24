@@ -2,39 +2,25 @@
 # существует ровно 6 маршрутов до правого нижнего угла сетки.
 # Сколько существует таких маршрутов в сетке 20×20?
 import copy
-#import time
 
 
-#def timer(f):
-    #def tmp(*args, **kwargs):
-        #t = time.time()
-        #res = f(*args, **kwargs)
-        #print('Время выполнения ф-ции:%f'%(time.time()-t))
-        #return res
-    #return tmp
-
-
-#@timer
-def find_pos(num, list):
+def find_pos(list):
+    index = dict()
     for i in list:
-        if len(i) > 1:
-            for j in i:
-                if num == j:
-                    strin = list.index(i)
-                    col = i.index(j)
-                    break
-                else:
-                    continue
-        else:
-            if num == i:
-                strin = list.index(i)
-    return strin, col
+        try:
+            if len(i) > 1:
+                for j in i:
+                   index[j] = (list.index(i), i.index(j))
+        except:
+            index[i] = list.index(i)
+    return index
 
 
-n = 21
+n = 12
 net = [[i for i in range(m * n, m * n + n)] for m in range(n)]
 all_knot = [i for i in range(n * n)]
 ways = []
+indexes = find_pos(net)
 while True:
     z = []
     if not ways:
@@ -42,8 +28,8 @@ while True:
         ways.append([net[0][0], net[1][0]])
     elif len(ways) > 1 and all_knot[len(all_knot) - 1] != ways[0][len(ways[0]) - 1]:
         for i in ways:
-            strin = find_pos(i[len(i) - 1], net)[0]
-            col = find_pos(i[len(i) - 1], net)[1]
+            strin = indexes[i[len(i) - 1]][0]
+            col = indexes[i[len(i) - 1]][1]
             if strin != n - 1 and col != n - 1:
                 z = copy.deepcopy(i)
                 i.append(net[strin][col + 1])
